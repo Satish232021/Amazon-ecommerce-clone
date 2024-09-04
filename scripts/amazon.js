@@ -32,7 +32,9 @@
     priceCents: 1899
 }]; */
 
-let productsHTML = [];
+import {cart} from '../data/cart.js';
+
+let productsHTML = '';
 
 products.forEach((product) => {
     productsHTML += /*  shorthand for productsHTML = productsHTML + */ ` 
