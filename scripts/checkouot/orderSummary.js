@@ -4,12 +4,13 @@ import {formatCurrency} from '../utils/money.js';
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/delivery-object.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
-hello(); 
+// hello(); 
 
-const today = dayjs();/* this will give the current day and date and time */
-const deliveryDate = today.add(7, 'days');/* it will add the days we need..1st value was how much we need to add and the 2nd value was what we need to add ..here days so days in that string */
-console.log(deliveryDate.format('dddd, MMMM D'));/* dayjs ..according to that there are some ways and shorts to format the date we required..and we used here ... dddd means day with full name...MMMM means month will full name....D means date number*/
+// const today = dayjs();/* this will give the current day and date and time */
+// const deliveryDate = today.add(7, 'days');/* it will add the days we need..1st value was how much we need to add and the 2nd value was what we need to add ..here days so days in that string */
+// console.log(deliveryDate.format('dddd, MMMM D'));/* dayjs ..according to that there are some ways and shorts to format the date we required..and we used here ... dddd means day with full name...MMMM means month will full name....D means date number*/
 
 export function renderOrderSummary() {
     let cartSummaryHTML = '';
@@ -134,6 +135,8 @@ export function renderOrderSummary() {
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         /* console.log(container); */
         container.remove();
+
+        renderPaymentSummary(); /* to regenerate all the payment data again like re generating the HTML with updated values */
         });
     });
 
@@ -145,6 +148,8 @@ export function renderOrderSummary() {
             const {productId, deliveryOptionId} = element.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
             renderOrderSummary(); /* A function can call / re-run itself which is called recursion */
+
+            renderPaymentSummary(); /* regenerate all the HTML with updated stuff  */
         });
     });
 }
