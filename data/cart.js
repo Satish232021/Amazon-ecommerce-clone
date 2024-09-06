@@ -1,4 +1,9 @@
-export let cart = JSON.parse(localStorage.getItem('cart'));
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage() {
+    cart = JSON.parse(localStorage.getItem('cart'));
 /* now if the cart is empty it returns a value null..so instead of that we display thw default cart value by below */
 if(!cart){ /* in this case not null will become truthy and executes below as cart will return null idf empty  by above */
     cart = [{
@@ -11,6 +16,7 @@ if(!cart){ /* in this case not null will become truthy and executes below as car
         deliveryOptionId: '2'
     }];
 }
+}
 
 
 function saveToStorage() {
@@ -20,22 +26,22 @@ function saveToStorage() {
 
 export function addToCart(productId){
             let matchingItem ;
-                cart.forEach((cartItem) => {
-                    if(productId === cartItem.productId){
-                        matchingItem = cartItem;
-                    }
-                });
-                if(matchingItem) {
-                    matchingItem.quantity += 1;
-                }else {
-                    cart.push({
-                        productId: productId,
-                        quantity: 1,
-                        deliveryOptionId: '1'
-                    });
+            cart.forEach((cartItem) => {
+                if(productId === cartItem.productId){
+                    matchingItem = cartItem;
                 }
+            });
+            if(matchingItem) {
+                matchingItem.quantity += 1;
+            }else {
+                cart.push({
+                    productId: productId,
+                    quantity: 1,
+                    deliveryOptionId: '1'
+                });
+            }
 
-                saveToStorage();
+            saveToStorage();
         };
 
 export  function removeFromCart(productId) {
