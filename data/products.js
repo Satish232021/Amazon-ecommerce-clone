@@ -1,3 +1,5 @@
+import {formatCurrency} from '../scripts/utils/money.js'
+
 export function getProduct(productId) {
   let matchingProduct;
 
@@ -9,6 +11,33 @@ export function getProduct(productId) {
 
         return matchingProduct;
 }
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  /* now create the methods for calculating the starts and price for cleaner code in html */
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)/* to convert in to dollars froms cents */}`;
+  }
+}
+
+const product1 = new Product();
+// console.log(product1);
 
 export const products = [
   {
@@ -669,4 +698,18 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) => {
+  return new Product(productDetails);
+});
+
+
+// console.log(products);/* check this for clarification */
+
+/* .map() 
+ [
+  product1, ----> function ----> new Product(product1),
+  product1, ----> function ----> new Product(product1),
+  product1, ----> function ----> new Product(product1),
+  ......
+ ]
+*/
