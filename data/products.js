@@ -66,9 +66,25 @@ class Clothing extends Product{ /* Here CLothing class will inherit { inheritanc
   }
 }
 
-const tshirt = new Clothing();
-console.log(tshirt);
-console.log(tshirt.getPrice());
+// const tshirt = new Clothing();
+// console.log(tshirt);
+// console.log(tshirt.getPrice());
+
+// const date = new Date();
+// console.log(date);
+// console.log(date.toLocaleTimeString());
+// console.log(this);
+
+// const object2 = {
+//   a: 2,
+//   b: this.a  /* this will give undefined as it has no outer objects to access */
+// }
+
+// function logThis() {
+//   console.log(this); /* it will show undefined...as there is no outer object for this to access */
+// }
+// logThis();
+// logThis.call('hello'); /* it is same as above ..but call( 'hello' ) will be accessed by this and print hello as it was outer */
 
 export const products = [
   {
