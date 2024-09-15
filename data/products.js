@@ -34,10 +34,41 @@ class Product {
   getPrice(){
     return `$${formatCurrency(this.priceCents)/* to convert in to dollars froms cents */}`;
   }
+
+  extraInfoHTML() {
+    return '';
+  }
+
 }
 
-const product1 = new Product();
+// const product1 = new Product();
 // console.log(product1);
+
+
+/* Inheritance was used here */
+/* Inheritance lets us reuse code between classes */
+class Clothing extends Product{ /* Here CLothing class will inherit { inheritance concept } all the properties of the Product class { parent class } */
+  sizeChartLink;/* just for reminder it was shortcut for the sizeChartLink = undefined */
+
+  constructor(productDetails) {
+    super(productDetails);/* super basically calls constructor of the parent class */ /* used for calling the names again without writing the this.id,thid.image again and again..as it will call automatically again and again for every object */
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  /* as we know that if we inherit it was inherit all the properties of parent class and 
+  here extraInfoHTML() method was also in the parent class and now
+  here we written different code instead of using the parent class method code
+  and this is called Method Overriding */
+  extraInfoHTML() { 
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">sie chart</a>
+    `;
+  }
+}
+
+const tshirt = new Clothing();
+console.log(tshirt);
+console.log(tshirt.getPrice());
 
 export const products = [
   {
@@ -699,6 +730,9 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
 
