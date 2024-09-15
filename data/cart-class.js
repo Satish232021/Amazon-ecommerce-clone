@@ -2,7 +2,8 @@
 /* class is genarlly a object generator */
 class Cart { /* just for a reminder we need to use PascalCase for things that generate objects */
     cartItems;/* slightly different syntax for class objects */
-    localStorageKey;  // let localStorageKey;/* shorthand for localStorageKey = undefined */
+    #localStorageKey;  // let localStorageKey;/* shorthand for localStorageKey = undefined */
+    /* #localStorageKey is caleed private property used # before...that it can only be accessed inside the class or inside the curly beackets {} */
 
         /* constructor usage */
         /* after generating each object below will run everytime and thats how this constructor method works */
@@ -13,11 +14,11 @@ class Cart { /* just for a reminder we need to use PascalCase for things that ge
     constructor(localStorageKey) {
         /* here in class instead of making parameters, we use this to give the value of localStorageKey for two different carts */
         this.localStorageKey = localStorageKey; 
-        this.loadFromStorage();
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() { 
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage() { /* to make the method private..use number sign or # sign so that it cant be accessed outside */
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
         if(!this.cartItems){
         this.cartItems = [{
             productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -33,7 +34,7 @@ class Cart { /* just for a reminder we need to use PascalCase for things that ge
 
     saveToStorage() {
     
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));/* remember JSON only stores strings..so we need to convert in to strings by using stringify */
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));/* remember JSON only stores strings..so we need to convert in to strings by using stringify */
     } /* no need of ; for methods in class objects */
 
     addToCart(productId){ /* shorcut for ....  addToCart : function(productId) { ...shortcut for colon function */
