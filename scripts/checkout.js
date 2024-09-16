@@ -5,19 +5,42 @@ import { renderPaymentSummary } from './checkouot/paymentSummary.js';
 import { loadProducts, loadProductsFetch } from '../data/products.js';
 import { loadCart } from '../data/cart.js';
 
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve) => {
-        loadCart(() => {
-            resolve();
-        });
-    })
+async function loadPage() {
 
-]).then((values) => {/* what it does was the values parameter takes the value in the resolve we given and runs / displays it */
-    console.log(values);
+    await loadProductsFetch();
+
+    await new Promise((resolve) => {
+            loadCart(() => {
+                resolve();
+            });
+        });
+
     renderOrderSummary();
     renderPaymentSummary();
-});
+
+
+}
+loadPage();
+
+
+
+
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve) => {
+//         loadCart(() => {
+//             resolve();
+//         });
+//     })
+
+// ]).then((values) => {/* what it does was the values parameter takes the value in the resolve we given and runs / displays it */
+//     console.log(values);
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
+
+
+
 
 // /* promises syntax...as it was the built in class and inside that we need to callback function */
 //  new Promise((resolve) => {
