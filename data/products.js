@@ -89,6 +89,28 @@ class Clothing extends Product{ /* Here CLothing class will inherit { inheritanc
 
 export let products =[];
 
+export function loadProductsFetch() {
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => { /* it does exact same thing below to send request to backend server but here we dont need to create objects or anything and we can directly use fetch to call */
+  /* here fetch sends a request to the backend and we get the response and move to the next step...here instead of making callback function fetch uses promise to wait for the response*/
+   return response.json(); /* when we return a promise it will wait for this promise to go to the next */
+  }).then((productsData) => {
+    // console.log(productsData);
+    products = productsData.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    console.log('load products');
+  });
+  return promise;
+
+}
+
+/* loadProductsFetch().then(() => {
+  console.log('next step')
+}); */
+
 export function loadProducts (fun) { /* here fun is called as a callback----> a function to run in the future */
   const xhr = new XMLHttpRequest();
 

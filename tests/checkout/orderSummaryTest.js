@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkouot/orderSummary.js";
 import {loadFromStorage, cart} from '../../data/cart.js';
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 
 describe('test  suite: renderOrderSummary', () => {
@@ -9,9 +9,9 @@ describe('test  suite: renderOrderSummary', () => {
 
 
     beforeAll((done) => {
-        loadProducts(() => {
-            done(); /* done() function allowa us to control when to go to the next step....if we not use this we keep waiting forever */
-        }); /* this make sure that the products load first and we call done and then mve to the further steps of code */
+        loadProductsFetch().then(() => {
+            done();
+        }) /* this make sure that the products load first and we call done and then mve to the further steps of code */
     });/* we can also use the done inside beforeEach((done) => { ..}) or it((done ) => {...}) to waait for the response from thebackend and to move to the further steps of code*/
 
     beforeEach(() => {
